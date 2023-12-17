@@ -1,0 +1,26 @@
+create_store_space 0 1 /home/yurunjie/Desktop/storeservice/test_space_0
+create_store_space 0 1 /home/yurunjie/Desktop/storeservice/test_space_1
+
+get_store_space_ids 0
+
+get_store_spacemetadata 0
+get_store_spacemetadata 1
+
+register_data 0 test_path/test_data
+register_data_with_bucket_name 0 test_path/test_data test_data
+
+import_data 1 /home/yurunjie/Desktop/storeservice/test_data/test_data_0
+import_data 1 /home/yurunjie/Desktop/storeservice/test_data/test_data_1
+import_data_with_bucket_name 1 /home/yurunjie/Desktop/storeservice/test_data/test_data_0 test_data_0
+import_data_with_bucket_name 1 /home/yurunjie/Desktop/storeservice/test_data/test_data_1 test_data_1
+
+get_store_space_data 0
+get_store_space_data_include_bucket_name 1
+
+get_data_metadata 0 test_path/test_data
+
+get_data_metadata_with_bucket_name 0 test_data
+get_data_metadata_with_bucket_name 1 test_data_0
+get_data_metadata_with_bucket_name 1 test_data_1
+
+exit

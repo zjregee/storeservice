@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build debug cmd",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${workspaceFolder}/tools/cmd/cmd.cpp",
+                "${workspaceFolder}/src/*.cpp",
+                "-I./src/include",
+                "-o",
+                "${workspaceFolder}/cmd",
+                "-lnetcdf",
+                "-lrados",
+                "-lssl",
+                "-lcrypto",
+            ]
+        }, {
+            "label": "clean debug cmd",
+            "type": "shell",
+            "command": "rm",
+            "args": ["cmd"]
+        }
+    ]
+}
