@@ -184,7 +184,15 @@ bool execute_command(const std::string &command) {
                 }
             }
         }
-        std::cout << std::endl << "get data metadata successful." << std::endl;
+        std::cout << std::endl << "get data metadata with bucket name successful." << std::endl;
+        return true;
+    } else if (sub_commands[0] == "read_var") {
+        
+        std::cout << std::endl << "read var successful." << std::endl;
+        return true;
+    } else if (sub_commands[0] == "read_var_with_bucket_name") {
+
+        std::cout << std::endl << "read var with bucket name successful." << std::endl;
         return true;
     } else {
         std::cout << "Invalid Command." << std::endl;

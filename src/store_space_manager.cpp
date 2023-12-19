@@ -111,17 +111,18 @@ bool StoreSpaceManager::import_data(size_t store_space_id, const std::string &pa
     if (!adaptor->create_bucket(bucket_name)) {
         return false;
     }
-    std::vector<std::string> list;
-    if (!get_local_dir_file_list(path, list)) {
+    std::vector<std::string> path_list;
+    std::vector<std::string> file_list;
+    if (!get_local_dir_file_list(path, path_list, file_list)) {
         return false;
     }
-    for (size_t i = 0; i < list.size(); i++) {
+    for (size_t i = 0; i < path_list.size(); i++) {
         char* data;
         size_t size;
-        if (!get_local_file_data(combine_path(path, list[i]), data, size)) {
+        if (!get_local_file_data(path_list[i], data, size)) {
             return false;
         }
-        if (!adaptor->insert_file_to_bucket(bucket_name, list[i], data, size)) {
+        if (!adaptor->insert_file_to_bucket(bucket_name, generate_random_string(4) + "." + file_list[i], data, size)) {
             return false;
         }
         delete[] data;
@@ -142,20 +143,21 @@ bool StoreSpaceManager::import_data_with_bucket_name(size_t store_space_id, cons
     if (!adaptor->create_bucket(bucket_name)) {
         return false;
     }
-    std::vector<std::string> list;
-    if (!get_local_dir_file_list(path, list)) {
+    std::vector<std::string> path_list;
+    std::vector<std::string> file_list;
+    if (!get_local_dir_file_list(path, path_list, file_list)) {
         return false;
     }
-    for (size_t i = 0; i < list.size(); i++) {
+    for (size_t i = 0; i < path_list.size(); i++) {
         char* data;
         size_t size;
-        if (!get_local_file_data(combine_path(path, list[i]), data, size)) {
+        if (!get_local_file_data(path_list[i], data, size)) {
             return false;
         }
-        if (!adaptor->insert_file_to_bucket(bucket_name, list[i], data, size)) {
+        if (!adaptor->insert_file_to_bucket(bucket_name, generate_random_string(4) + "." + file_list[i], data, size)) {
             return false;
         }
-        delete data;
+        delete[] data;
     }
     return true;
 }

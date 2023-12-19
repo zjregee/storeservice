@@ -59,8 +59,7 @@ bool get_local_file_data(const std::string &path, char* &data, size_t &size) {
     return file.good();
 }
 
-bool get_local_dir_file_list(const std::string &path, std::vector<std::string> &list) {
-    list.clear();
+bool get_local_dir_file_list(const std::string &path, std::vector<std::string> &path_list, std::vector<std::string> &name_list) {
     DIR* dir = opendir(path.c_str());
     if (dir == nullptr) {
         return false;
@@ -68,7 +67,12 @@ bool get_local_dir_file_list(const std::string &path, std::vector<std::string> &
     struct dirent* entry;
     while ((entry = readdir(dir)) != nullptr) {
         if (entry->d_type == DT_REG) {
-            list.emplace_back(entry->d_name);
+            path_list.emplace_back(combine_path(path, entry->d_name));
+            name_list.emplace_back(entry->d_name);
+        } else if (entry->d_type == DT_DIR && strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
+            if (!get_local_dir_file_list(combine_path(path, entry->d_name), path_list, name_list)) {
+                return false;
+            }
         }
     }
     closedir(dir);

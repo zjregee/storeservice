@@ -46,9 +46,9 @@ bool CephAdaptor::insert_file_to_bucket(const std::string &bucket_name, const st
     if (rados_write_full(io_ctx, file_name.c_str(), data, size) < 0) {
         return false;
     }
-    if (!put_file_in_cache(generate_cache_id(bucket_name, file_name), data, size)) {
-        return false;
-    }
+    // if (!put_file_in_cache(generate_cache_id(bucket_name, file_name), data, size)) {
+    //     return false;
+    // }
     rados_ioctx_destroy(io_ctx);
     return true;
 }
